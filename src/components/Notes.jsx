@@ -58,7 +58,7 @@ export default function Notes() {
   };
 
   return (
-    <div className="p-4 min-h-screen flex flex-col items-center">
+    <div className="flex flex-col items-center">
       {username && (
         <div className="w-full max-w-4xl mb-4 text-center">
           <h1 className="text-2xl text-white drop-shadow">

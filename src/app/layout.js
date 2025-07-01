@@ -1,5 +1,6 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer"; // Import Footer
 // import SplashCursor from "../../anm/SplashCursor/SplashCursor";
 import { Inter } from "next/font/google";
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         {/* <SplashCursor /> */}
         {children}
+        <Footer /> {/* Add Footer here */}
       </body>
     </html>
   );

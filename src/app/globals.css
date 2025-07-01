@@ -26,7 +26,6 @@ body::before {
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1.5px solid rgba(255, 255, 255, 0.18);
-  z-index: 1;
 }
 
 input, textarea {
