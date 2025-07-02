@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import OverlayMessage from "./OverlayMessage";
 
 export default function Notes() {
   const [notes, setNotes] = useState([]);
@@ -9,6 +10,8 @@ export default function Notes() {
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
   const [username, setUsername] = useState("");
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+  const [overlayMessage, setOverlayMessage] = useState(null);
 
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
@@ -38,10 +41,19 @@ export default function Notes() {
     }
   };
 
-  const handleDelete = async (id) => {
-    const res = await fetch(`/api/notes/${id}`, { method: "DELETE" });
-    const data = await res.json();
-    if (data.success) fetchNotes();
+  const handleDelete = (id) => {
+    setConfirmDeleteId(id);
+    setOverlayMessage("Apakah Anda yakin ingin menghapus catatan ini?");
+  };
+
+  const confirmDelete = async () => {
+    if (confirmDeleteId) {
+      const res = await fetch(`/api/notes/${confirmDeleteId}`, { method: "DELETE" });
+      const data = await res.json();
+      if (data.success) fetchNotes();
+      setConfirmDeleteId(null);
+      setOverlayMessage(null);
+    }
   };
 
   const handleUpdateNote = async (e, id) => {
@@ -59,6 +71,15 @@ export default function Notes() {
 
   return (
     <div className="flex flex-col items-center">
+      <OverlayMessage
+        message={overlayMessage}
+        onConfirm={confirmDelete}
+        onCancel={() => {
+          setConfirmDeleteId(null);
+          setOverlayMessage(null);
+        }}
+        type="confirm"
+      />
       {username && (
         <div className="w-full max-w-4xl mb-4 text-center">
           <h1 className="text-2xl text-white drop-shadow">

@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import OverlayMessage from "./OverlayMessage";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [overlayMessage, setOverlayMessage] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,12 +20,16 @@ export default function LoginForm() {
       localStorage.setItem("username", data.user.username);
       window.location.href = "/notes";
     } else {
-      alert(data.message);
+      setOverlayMessage(data.message);
     }
   };
 
   return (
     <div className="glass p-8 w-full max-w-md text-white shadow-glass">
+      <OverlayMessage
+        message={overlayMessage}
+        onConfirm={() => setOverlayMessage(null)}
+      />
       <div className="flex justify-center mb-6">
         <h2 className="text-3xl font-bold text-glass-blue-light drop-shadow-lg bg-white/70 px-4 py-2 rounded-lg inline-block shadow-md">Login</h2>
       </div>
