@@ -1,0 +1,8 @@
+# Paksa GitHub deteksi file Vue dan React
+*.vue linguist-detectable=true
+*.js linguist-detectable=true
+*.jsx linguist-detectable=true
+
+# Jangan anggap folder src dan components sebagai vendored
+src/** -linguist-vendored
+components/** -linguist-vendored
